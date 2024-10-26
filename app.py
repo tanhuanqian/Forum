@@ -18,14 +18,16 @@ app.secret_key = os.getenv('SECRET_KEY', os.urandom(24))
 db.init_app(app)
 mail.init_app(app)
 
-# Redis 連接配置
-app.config['REDIS_URL'] = "redis://localhost:6379/0"
+# Redis 连接配置，从环境变量中获取
+app.config['REDIS_URL'] = os.getenv('REDIS_URL', "redis://localhost:6379/0")
 app.config['CACHE_TYPE'] = 'redis'
 app.config['CACHE_REDIS_URL'] = app.config['REDIS_URL']
 app.config['CACHE_DEFAULT_TIMEOUT'] = 300
 cache.init_app(app)
-# 设置上传文件夹
-app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'uploads')
+
+# 设置上传文件夹，根据环境变量设定
+app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', os.path.join(app.root_path, 'uploads'))
+
 # 可选：限制上传文件的大小
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB
 
