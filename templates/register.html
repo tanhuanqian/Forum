@@ -1,0 +1,93 @@
+{% extends "templatefile.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="container">
+<h2>Create an Account</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<form id="registerform" action="/user/register" method="POST">
+    <div style="margin: 5px;" class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{email or ''}}" required>
+    </div>
+
+    <div style="margin: 5px;" class="input-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{username or ''}}" required>
+    </div>
+
+    <div style="margin: 5px;" class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+
+    <div style="margin: 5px;" class="input-group">
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+    </div>
+
+    <div style="margin: 5px;" class="input-group">
+        <label for="code">Verification Code:</label>
+        <input type="text" id="code" name="code" required>
+        <button style="margin: 5px;" type="button" id="send-code">Send Verification Code</button>
+    </div>
+
+    <button style="margin: 5px;" type="submit" class="button">Register</button>
+</form>
+
+<div class="alt-option">
+    Already have an account? <a href="/user/login">Log In</a>
+</div>
+
+<script>
+    document.getElementById("send-code").addEventListener("click", function() {
+        const email = document.getElementById("email").value;
+        
+        if (!email) {
+            alert("Please enter your email before requesting a verification code.");
+            return;
+        }
+
+        const sendCodeButton = document.getElementById("send-code");
+        sendCodeButton.disabled = true; // 禁用按钮
+
+        fetch("/user/send_code", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            sendCodeButton.disabled = false; // 重新启用按钮
+        })
+        .catch(error => {
+            console.error("Error sending verification code:", error);
+            sendCodeButton.disabled = false; // 出现错误也要重新启用按钮
+        });
+    });
+    
+    document.getElementById("registerform").addEventListener('submit',function(){
+        var password = document.getElementById('password').value;
+        var cpassword = document.getElementById('confirm_password').value;
+        if(password !== cpassword){
+            event.preventDefault();
+            alert('Password do not match');
+        }
+    });
+</script>
+</div>
+{% endblock %}

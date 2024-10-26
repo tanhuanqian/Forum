@@ -1,0 +1,77 @@
+{% extends "templatefile.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="forum-container">
+    {% for post in posts %}
+    <div class="post-block">
+        <div class="post-vote-section">
+            <button class="vote-btn" onclick="votePost({{ post.id }}, 'upvote')">⬆️</button>
+            <span id="vote-count-{{ post.id }}" class="vote-count">{{ post.vote_count }}</span>
+            <button class="vote-btn" onclick="votePost({{ post.id }}, 'downvote')">⬇️</button>
+        </div>
+        <div class="post-content-section">
+            <h3 class="post-title">{{ post.title }}</h3>
+            <p class="post-body">{{ post.content[:200] }}{% if post.content|length > 200 %}...{% endif %}</p>
+            <a href="{{ url_for('homepage.view_post', post_id=post.id) }}" class="view-post-btn">Read More</a>
+            <p class="post-meta">Posted by {{ post.author.username }} on {{ post.create_time.strftime('%Y-%m-%d') }}</p>
+            
+            <!-- 添加修改和删除按钮 -->
+            {% if g.user and g.user.id == post.author.id %}
+                <button class="edit-btn" onclick="editPost({{ post.id }})">Edit</button>
+                <button class="delete-btn" onclick="deletePost({{ post.id }})">Delete</button>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function votePost(postId, action) {
+        fetch(`/post/${postId}/vote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ action: action })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 更新显示的投票数量
+            document.getElementById(`vote-count-${postId}`).innerText = data.vote_count;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    }
+
+    function deletePost(postId) {
+        if (confirm("Are you sure you want to delete this post?")) {
+            fetch(`/post/${postId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // 从页面中移除该贴文
+                document.querySelector(`#post-${postId}`).remove();
+            })
+            .catch(error => {
+                console.error('There was a problem with the delete operation:', error);
+            });
+        }
+    }
+
+    function editPost(postId) {
+        // 这里可以使用一个 modal 或者直接导航到编辑页面
+        window.location.href = `/post/${postId}/edit`; // 假设你有一个编辑页面
+    }
+</script>
+{% endblock %}

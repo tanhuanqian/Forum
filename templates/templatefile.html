@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='post.css') }}">
+</head>
+<body>
+    <div class="header">
+        {% if user %}
+            <a id="homebutton" class="userbutton" href="{{ url_for('homepage.home') }}">Home</a>
+	        <a id="postbutton" class="userbutton" href="{{ url_for('homepage.create') }}">Post</a>
+            <form id="searchform" method="GET" action="{{ url_for('homepage.search') }}" class="searchbox">
+                <input type="text" name="query" placeholder="Search..." class="search-input" required>
+                <button type="submit" class="search-button">Search</button>
+            </form>            
+                <div class="user-controls">
+                    <a id="username" class="userbutton">{{ user.username }}</a>
+                    <a id="logout" class="userbutton" href="{{url_for('user.logout')}}">Logout</a>
+                </div>
+            </div>
+        {% else %}
+            <div id="homepage" class="homepage">Welcome to Our Forum</div>
+        {% endif %}
+    </div>
+    {% block content %}{% endblock %}
+
+    
+</body>
+</html>

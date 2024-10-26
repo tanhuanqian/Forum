@@ -1,0 +1,14 @@
+{% extends "templatefile.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Welcome Back!</h2>
+        <p>Join the conversation and share your thoughts.</p>
+        <a href="/user/login"><button class="button">Log In</button></a>
+        <div class="alt-option">
+            Don't have an account? <a href="/user/signup">Sign Up</a>
+        </div>
+    </div>
+{% endblock %}

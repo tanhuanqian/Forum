@@ -1,0 +1,184 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+}
+
+.header {
+    background-color: #4a90e2;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; /* 左右分布 */
+    align-items: center; /* 垂直居中 */
+}
+
+.homepage {
+    text-align: center; /* 居中显示 */
+    width: 100%; /* 确保占满整个宽度 */
+    font-size: 24px;
+}
+
+.user-controls {
+    display: flex; /* 使用flex布局 */
+    align-items: center; /* 垂直居中对齐 */
+    margin-left: auto; /* 自动边距将其推向右侧 */
+}
+
+.userbutton {
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    margin-left: 10px; /* 按钮之间的间距 */
+}
+
+.userbutton:hover {
+    background-color: #357ABD; /* Hover效果 */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.searchbox {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.search-input {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 5px;
+}
+
+.search-button {
+    padding: 5px 10px;
+    background-color: #357ABD;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #285A8A;
+}
+
+.container {
+    background-color: white;
+    width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 50px auto;
+}
+
+.container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+.button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.button:hover {
+    background-color: #357ab8;
+}
+
+.alt-option {
+    margin-top: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+.alt-option a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.flashes {
+    list-style-type: none;
+    padding: 0;
+}
+
+.flashes li {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.flashes li.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.flashes li.danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.styled-select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    appearance: none; /* 去掉默认样式 */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,5" fill="%23333"/></svg>'); /* 自定义下拉箭头 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.input-group textarea {
+    width: 100%; /* 占满容器宽度 */
+    padding: 10px; /* 内边距 */
+    border: 1px solid #ccc; /* 边框颜色 */
+    border-radius: 5px; /* 圆角 */
+    font-size: 14px; /* 字体大小 */
+    resize: vertical; /* 允许用户垂直调整大小 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    transition: border-color 0.3s; /* 平滑过渡 */
+}
+
+.input-group textarea:focus {
+    border-color: #4a90e2; /* 焦点边框颜色 */
+    outline: none; /* 去掉默认的轮廓 */
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); /* 焦点阴影效果 */
+}

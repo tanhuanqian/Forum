@@ -1,0 +1,41 @@
+{% extends "templatefile.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form action="/user/login" method="POST">
+        <div class="input-group">
+            <label for="account-type">Account Type</label>
+            <select id="account-type" name="account_type" class="styled-select" required>
+                <option value="email">Email</option>
+                <option value="username">Username</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="account">Email or Username</label>
+            <input type="text" id="account" name="account" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="button">Log In</button>
+    </form>
+    <div class="alt-option">
+        Don't have an account? <a href="/user/register">Sign Up</a>
+    </div>
+</div>
+{% endblock %}
